@@ -11,9 +11,9 @@ assessments.
 
 ## Schema
 
-Users have a username, password_digest, and session_token.
-Links have a title and url; each belongs to a User.
-Comments have a body; each belongs to a User and a Link.
+Wizards have a username, password_digest, and session_token.
+Courses have a title and description; each belongs to a Wizard instructor.
+Enrollments each belongs to a Wizard and a Course.
 
 ## Specs
 
@@ -21,14 +21,14 @@ Run the specs as you solve the assessment. The tests are intended to
 be run in this order:
 
 ```
-bundle exec rspec spec/models/user_spec.rb
+bundle exec rspec spec/models/wizard_spec.rb
 bundle exec rspec spec/controllers/application_controller_spec.rb
-bundle exec rspec spec/controllers/users_controller_spec.rb
+bundle exec rspec spec/controllers/wizards_controller_spec.rb
 bundle exec rspec spec/controllers/sessions_controller_spec.rb
-bundle exec rspec spec/controllers/links_controller_spec.rb
+bundle exec rspec spec/controllers/courses_controller_spec.rb
 bundle exec rspec spec/features/auth_spec.rb
-bundle exec rspec spec/features/links_spec.rb
-bundle exec rspec spec/features/comments_spec.rb
+bundle exec rspec spec/features/courses_spec.rb
+bundle exec rspec spec/features/enrollments_spec.rb
 ```
 
 If a failing spec confuses you, look at the spec file to see if you

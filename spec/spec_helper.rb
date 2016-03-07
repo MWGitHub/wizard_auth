@@ -25,20 +25,33 @@ RSpec.configure do |config|
   config.backtrace_exclusion_patterns = [/\.rvm/, /\.rbenv/]
 end
 
-def create_jill_with_link
-  let(:jill) { User.create!(username: 'jill_bruce', password: 'abcdef') }
-  let(:jill_link) { jill.links.create!(title: 'Jill Link', url: 'cats.com') }
+def create_instructor(username)
+  Wizard.create!(username: username, password: 'abcdef', instructor: true)
+end
+
+def create_dumbledore
+  create_instructor('dumbledore')
+end
+
+def create_mcgonagall_with_course
+  let(:mcgonagall) { Wizard.create!(username: 'mcgonagall', password: 'abcdef') }
+  let(:mcgonagall_course) {
+    mcgonagall.taught_courses.create!(
+      title: 'Transfiguration',
+      description: 'Change Stuff'
+    )
+  }
 end
 
 def sign_up(username)
-  visit "/users/new"
+  visit "/wizards/new"
   fill_in "Username", with: username
   fill_in "Password", with: 'abcdef'
   click_button 'Sign Up'
 end
 
-def sign_up_as_ginger_baker
-  sign_up("ginger_baker")
+def sign_up_as_hermione_granger
+  sign_up("hermione_granger")
 end
 
 def sign_in(username)
@@ -48,12 +61,12 @@ def sign_in(username)
   click_button 'Sign In'
 end
 
-def make_link(title = nil, url = nil)
-  title ||= "reddit"
-  url ||= "http://www.reddit.com"
+def make_course(title = nil, description = nil)
+  title ||= "wizarding"
+  description ||= "magic"
 
-  visit "/links/new"
+  visit "/courses/new"
   fill_in 'Title', with: title
-  fill_in 'URL', with: url
-  click_button "Create New Link"
+  fill_in 'Description', with: description
+  click_button "Create New Course"
 end

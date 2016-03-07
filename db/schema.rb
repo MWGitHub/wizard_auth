@@ -11,30 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130814170745) do
+ActiveRecord::Schema.define(version: 20160306233951) do
 
-  create_table "comments", force: :cascade do |t|
-    t.string   "body",       limit: 255, null: false
-    t.integer  "user_id",                null: false
-    t.integer  "link_id",                null: false
+  create_table "courses", force: :cascade do |t|
+    t.string   "title",         null: false
+    t.string   "description",   null: false
+    t.integer  "instructor_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "links", force: :cascade do |t|
-    t.string   "title",      limit: 255, null: false
-    t.string   "url",        limit: 255, null: false
-    t.integer  "user_id",                null: false
+  add_index "courses", ["instructor_id"], name: "index_courses_on_instructor_id"
+
+  create_table "enrollments", force: :cascade do |t|
+    t.integer  "student_id", null: false
+    t.integer  "course_id",  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "username",        limit: 255, null: false
-    t.string   "password_digest", limit: 255, null: false
-    t.string   "session_token",   limit: 255, null: false
+  add_index "enrollments", ["course_id"], name: "index_enrollments_on_course_id"
+  add_index "enrollments", ["student_id", "course_id"], name: "index_enrollments_on_student_id_and_course_id", unique: true
+  add_index "enrollments", ["student_id"], name: "index_enrollments_on_student_id"
+
+  create_table "wizards", force: :cascade do |t|
+    t.string   "username",                        null: false
+    t.string   "password_digest",                 null: false
+    t.string   "session_token",                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "instructor",      default: false, null: false
   end
+
+  add_index "wizards", ["username"], name: "index_wizards_on_username", unique: true
 
 end

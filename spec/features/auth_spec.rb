@@ -2,10 +2,10 @@ require 'rails_helper'
 
 feature "Sign up" do
   before :each do
-    visit "/users/new"
+    visit "/wizards/new"
   end
 
-  it "has a user sign up page" do
+  it "has a wizard sign up page" do
     expect(page).to have_content "Sign Up"
   end
 
@@ -14,25 +14,25 @@ feature "Sign up" do
     expect(page).to have_content "Password"
   end
 
-  it "logs the user in and redirects them to links index on success" do
-    sign_up_as_ginger_baker
-    # add user name to application.html.erb layout
-    expect(page).to have_content 'ginger_baker'
-    expect(current_path).to eq("/links")
+  it "logs the wizard in and redirects them to courses index on success" do
+    sign_up_as_hermione_granger
+    # add wizard name to application.html.erb layout
+    expect(page).to have_content 'hermione_granger'
+    expect(current_path).to eq("/courses")
   end
 end
 
 feature "Sign out" do
   it "has a sign out button" do
-    sign_up_as_ginger_baker
+    sign_up_as_hermione_granger
     expect(page).to have_button 'Sign Out'
   end
 
-  it "after logout, a user is not allowed access to links index and is redirected to login" do
-    sign_up_as_ginger_baker
+  it "after logout, a wizard is not allowed access to courses index and is redirected to login" do
+    sign_up_as_hermione_granger
 
     click_button 'Sign Out'
-    visit '/links'
+    visit '/courses'
 
     # redirect to login page
     expect(page).to have_content 'Sign In'
@@ -54,7 +54,7 @@ feature "Sign in" do
 
   it "returns to sign in on failure" do
     visit "/session/new"
-    fill_in "Username", with: 'ginger_baker'
+    fill_in "Username", with: 'hermione_granger'
     fill_in "Password", with: 'hello'
     click_button "Sign In"
 
@@ -63,11 +63,11 @@ feature "Sign in" do
     expect(page).to have_content "Username"
   end
 
-  it "takes a user to links index on success" do
-    User.create!(username: 'jack_bruce', password: 'abcdef')
-    sign_in('jack_bruce')
+  it "takes a wizard to courses index on success" do
+    Wizard.create!(username: 'harry_potter', password: 'abcdef')
+    sign_in('harry_potter')
 
-    expect(page).to have_content "jack_bruce"
-    expect(current_path).to eq("/links")
+    expect(page).to have_content "harry_potter"
+    expect(current_path).to eq("/courses")
   end
 end

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Links</title>
+  <title>Courses</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -9,11 +9,11 @@
 <body>
 
 <% if signed_in? %>
-  <%= current_user.username %>
+  <%= current_wizard.username %>
   <%= button_to "Sign Out", session_url, :method => :delete %>
 <% else %>
   <%= link_to "Sign In", new_session_url %>
-  <%= link_to "Sign Up", new_user_url %>
+  <%= link_to "Sign Up", new_wizard_url %>
 <% end %>
 
 <br>
