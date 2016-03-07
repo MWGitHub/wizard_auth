@@ -1,0 +1,18 @@
+<h2>Edit Course</h2>
+
+<form action="<%= course_url(@course) %>" method="post">
+  <%= authenticity_token %>
+  <input type="hidden" name="_method" value="patch">
+
+  <label>
+    Title
+    <input type="text" name="course[title]" value="<%= @course.title %>">
+  </label>
+
+  <label>
+    Description
+    <input type="text" name="course[description]" value="<%= @course.description %>">
+  </label>
+
+  <input type="submit" value="Update Course">
+</form>

@@ -1,0 +1,16 @@
+<h2>Sign Up</h2>
+
+<form action="<%= wizards_url %>" method="post">
+  <%= authenticity_token %>
+  <label>
+    Username
+    <input type="text" name="wizard[username]" value="">
+  </label>
+
+  <label>
+    Password
+    <input type="password" name="wizard[password]" value="">
+  </label>
+
+  <input type="submit" value="Sign Up">
+</form>
