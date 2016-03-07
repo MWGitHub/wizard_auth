@@ -3,7 +3,7 @@
 You have **2 hours** for the assessment.
 
 This assessment will focus on a simple CRUD app with
-authentication. You will have to model users, links, and comments, along
+authentication. You will have to model wizards, courses, and enrollments, along
 with session management.
 
 **Windows Users**: Please use one of our workstation machines for the
